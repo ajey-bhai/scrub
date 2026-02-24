@@ -55,7 +55,8 @@ export default function App() {
   const [outreach, setOutreach] = useState<OutreachData | null>(null);
 
   useEffect(() => {
-    const base = "/data";
+    // Use Vite base so it works on localhost (\"/\") and GitHub Pages (\"/scrub/\")
+    const base = `${import.meta.env.BASE_URL}data`;
     Promise.all([
       loadJson<OverviewData>(`${base}/overview.json`),
       loadJson<PopulationData>(`${base}/population.json`),
