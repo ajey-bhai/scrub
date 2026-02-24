@@ -19,7 +19,10 @@ export function Overview({ data }: Props) {
   return (
     <section className="view overview-view">
       <h2>Overview</h2>
-      <p className="subtitle">Key metrics from bureau scrub (RUN 1–4).</p>
+      <p className="subtitle">
+        High‑level picture of how many customers you have, how many look usable for lending, and how many sit in the key PL
+        demand window right now.
+      </p>
       <div className="kpi-grid">
         {cards.map((c) => (
           <div key={c.label} className="kpi-card">
@@ -30,6 +33,9 @@ export function Overview({ data }: Props) {
       </div>
       <div className="golden-window-note">
         <strong>Golden window (Curve A / B):</strong> {data.goldenWindowCurveA.toLocaleString()} customers took PL in 2–10 months post vehicle (all); {data.goldenWindowCurveB.toLocaleString()} first-timers only.
+        {" "}
+        This window is where recall of the car purchase is high and PL need is visible, so campaigns here generally convert
+        best.
       </div>
     </section>
   );

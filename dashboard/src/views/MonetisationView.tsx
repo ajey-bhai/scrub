@@ -28,7 +28,10 @@ export function MonetisationView({ data }: Props) {
 
       <div className="chart-card full-width">
         <h3>TAM waterfall (counts)</h3>
-        <p className="axis-note">N0 → less Bucket D / thin file → SAM. Values in customers; minus steps are exclusions.</p>
+        <p className="axis-note">
+          Starting from total unique customers (N0), we knock off obviously unsuitable segments (bad buckets, thin files) to
+          arrive at the serviceable base (SAM).
+        </p>
         <ResponsiveContainer width="100%" height={340}>
           <BarChart
             data={waterfall}
@@ -40,7 +43,6 @@ export function MonetisationView({ data }: Props) {
               type="number"
               tickFormatter={(v) => v.toLocaleString()}
               domain={[0, maxVal * 1.15]}
-              label={{ value: "Number of customers", position: "insideBottom", offset: -16 }}
             />
             <YAxis type="category" dataKey="stage" width={170} tick={{ fontSize: 12 }} />
             <Tooltip formatter={(v: number | undefined) => (v != null ? v.toLocaleString() : "")} />
@@ -63,6 +65,10 @@ export function MonetisationView({ data }: Props) {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
+        <p className="chart-comment">
+          This view sizes the true PL/LAC opportunity: SAM is the realistic target pool after removing bad debt, very thin
+          histories and other unusable segments.
+        </p>
       </div>
     </section>
   );
