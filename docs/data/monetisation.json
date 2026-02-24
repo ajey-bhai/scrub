@@ -11,14 +11,63 @@
       "type": "minus"
     },
     {
-      "stage": "Less: Thin file",
-      "value": -5107,
+      "stage": "Less: Thin file (<3 tradelines)",
+      "value": -8967,
       "type": "minus"
     },
     {
       "stage": "Serviceable base (SAM)",
-      "value": 31123,
+      "value": 27263,
       "type": "total"
+    }
+  ],
+  "samSegments": {
+    "plEligible": 23811,
+    "lacEligible": 1238,
+    "deferred": 2499,
+    "excluded": 429
+  },
+  "revenueModel": {
+    "pl": {
+      "avgTicketInr": 75000,
+      "avgTenorMonths": 18,
+      "yieldPct": 24,
+      "creditCostPct": 5,
+      "netMarginPct": 16.0,
+      "prepaymentAdj": 0.75,
+      "disbursalsCount": 1904,
+      "aumYear1Inr": 160650000.0,
+      "revenueYear1Inr": 25704000.0
+    },
+    "lac": {
+      "avgTicketInr": 150000,
+      "avgTenorMonths": 24,
+      "yieldPct": 20,
+      "creditCostPct": 2,
+      "netMarginPct": 15.0,
+      "prepaymentAdj": 0.8,
+      "disbursalsCount": 86,
+      "aumYear1Inr": 20640000.0,
+      "revenueYear1Inr": 3096000.0
+    },
+    "totalAumYear1Inr": 181290000.0,
+    "totalNetRevenueYear1Inr": 28800000.0
+  },
+  "aumProjection": [
+    {
+      "month": 6,
+      "aumInr": 90645000.0,
+      "label": "Month 6"
+    },
+    {
+      "month": 12,
+      "aumInr": 181290000.0,
+      "label": "Month 12"
+    },
+    {
+      "month": 24,
+      "aumInr": 362580000.0,
+      "label": "Month 24"
     }
   ]
 }

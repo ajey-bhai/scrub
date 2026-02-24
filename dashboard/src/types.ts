@@ -67,6 +67,39 @@ export interface TimingData {
 
 export interface MonetisationData {
   tamWaterfall: { stage: string; value: number; type: string }[];
+  samSegments?: {
+    plEligible: number;
+    lacEligible: number;
+    deferred: number;
+    excluded: number;
+  };
+  revenueModel?: {
+    pl: {
+      avgTicketInr: number;
+      avgTenorMonths: number;
+      yieldPct: number;
+      creditCostPct: number;
+      netMarginPct: number;
+      prepaymentAdj: number;
+      disbursalsCount: number;
+      aumYear1Inr: number;
+      revenueYear1Inr: number;
+    };
+    lac: {
+      avgTicketInr: number;
+      avgTenorMonths: number;
+      yieldPct: number;
+      creditCostPct: number;
+      netMarginPct: number;
+      prepaymentAdj: number;
+      disbursalsCount: number;
+      aumYear1Inr: number;
+      revenueYear1Inr: number;
+    };
+    totalAumYear1Inr: number;
+    totalNetRevenueYear1Inr: number;
+  };
+  aumProjection?: { month: number; aumInr: number; label: string }[];
 }
 
 export interface OutreachData {

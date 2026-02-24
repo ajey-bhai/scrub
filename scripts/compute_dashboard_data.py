@@ -288,6 +288,7 @@ def main():
     # --- RUN 3: Risk (simplified composite) ---
     risk_buckets = {"0-39": 0, "40-69": 0, "70-100": 0}
     affordability_buckets = {"micro": 0, "mid": 0, "mass": 0, "affluent": 0}
+    cust_risk_score = {}
 
     for cid in cust_tradelines:
         score = 50
@@ -304,6 +305,7 @@ def main():
         elif cust_max_dpd[cid] > 0:
             score -= 10
         score = max(0, min(100, score))
+        cust_risk_score[cid] = score
 
         if score < 40:
             risk_buckets["0-39"] += 1
@@ -464,17 +466,93 @@ def main():
         "table": data_quality_table,
     }
 
-    # --- RUN 5: TAM Waterfall (simplified, bureau-only approximation) ---
+    # --- RUN 5: TAM Waterfall and P&L ---
     bucket_d = bucket_counts["D"]
-    thin_file = sum(1 for cid in cust_tradelines if len(cust_tradelines[cid]) == 1)
+    thin_file = sum(1 for cid in cust_tradelines if len(cust_tradelines[cid]) < 3)
     sam = n0 - bucket_d - thin_file
     sam = max(0, sam)
+
+    sam_cids = {cid for cid in cust_tradelines if cust_bucket.get(cid) != "D" and len(cust_tradelines[cid]) >= 3}
+    pl_eligible = sum(1 for cid in sam_cids if cust_risk_score.get(cid, 0) >= 70)
+    lac_eligible = sum(1 for cid in sam_cids if 40 <= cust_risk_score.get(cid, 0) < 70 and cid in cust_has_vehicle)
+    deferred = sum(1 for cid in sam_cids if 40 <= cust_risk_score.get(cid, 0) < 70 and cid not in cust_has_vehicle)
+    excluded_sam = sum(1 for cid in sam_cids if cust_risk_score.get(cid, 0) < 40)
+
+    demand_rate_pl = 0.32
+    take_rate_pl = 0.25
+    demand_rate_lac = 0.20
+    take_rate_lac = 0.35
+    disbursals_pl = int(pl_eligible * demand_rate_pl * take_rate_pl)
+    disbursals_lac = int(lac_eligible * demand_rate_lac * take_rate_lac)
+
+    # Revenue model (skill: PL 75K, 18mo, yield 24%, credit 5%, opex 3% → net 16%; LAC 1.5L, 24mo, 20%, 2%, net 15%)
+    avg_ticket_pl = 75000
+    avg_tenor_pl_months = 18
+    prepayment_adj_pl = 0.75
+    net_margin_pl = 0.16
+    pl_aum_year1 = disbursals_pl * avg_ticket_pl * (avg_tenor_pl_months / 12.0 * prepayment_adj_pl)
+    pl_revenue_yr1 = pl_aum_year1 * net_margin_pl
+
+    avg_ticket_lac = 150000
+    avg_tenor_lac_months = 24
+    prepayment_adj_lac = 0.80
+    net_margin_lac = 0.15
+    lac_aum_year1 = disbursals_lac * avg_ticket_lac * (avg_tenor_lac_months / 12.0 * prepayment_adj_lac)
+    lac_revenue_yr1 = lac_aum_year1 * net_margin_lac
+
+    total_aum_year1 = pl_aum_year1 + lac_aum_year1
+    total_net_revenue_yr1 = pl_revenue_yr1 + lac_revenue_yr1
+
+    # AUM at month 6, 12, 24 (simplified: 6 = ~50% of year-1 runout, 12 = full year-1, 24 = year-1 + year-2 same volume)
+    aum_month6 = total_aum_year1 * 0.5
+    aum_month12 = total_aum_year1
+    aum_month24 = total_aum_year1 * 2.0
 
     tam_waterfall = [
         {"stage": "Total customers (N0)", "value": n0, "type": "start"},
         {"stage": "Less: Bucket D (bad)", "value": -bucket_d, "type": "minus"},
-        {"stage": "Less: Thin file", "value": -thin_file, "type": "minus"},
+        {"stage": "Less: Thin file (<3 tradelines)", "value": -thin_file, "type": "minus"},
         {"stage": "Serviceable base (SAM)", "value": sam, "type": "total"},
+    ]
+
+    revenue_model = {
+        "pl": {
+            "avgTicketInr": avg_ticket_pl,
+            "avgTenorMonths": avg_tenor_pl_months,
+            "yieldPct": 24,
+            "creditCostPct": 5,
+            "netMarginPct": round(net_margin_pl * 100, 1),
+            "prepaymentAdj": prepayment_adj_pl,
+            "disbursalsCount": disbursals_pl,
+            "aumYear1Inr": round(pl_aum_year1, 0),
+            "revenueYear1Inr": round(pl_revenue_yr1, 0),
+        },
+        "lac": {
+            "avgTicketInr": avg_ticket_lac,
+            "avgTenorMonths": avg_tenor_lac_months,
+            "yieldPct": 20,
+            "creditCostPct": 2,
+            "netMarginPct": round(net_margin_lac * 100, 1),
+            "prepaymentAdj": prepayment_adj_lac,
+            "disbursalsCount": disbursals_lac,
+            "aumYear1Inr": round(lac_aum_year1, 0),
+            "revenueYear1Inr": round(lac_revenue_yr1, 0),
+        },
+        "totalAumYear1Inr": round(total_aum_year1, 0),
+        "totalNetRevenueYear1Inr": round(total_net_revenue_yr1, 0),
+    }
+
+    sam_segments = {
+        "plEligible": pl_eligible,
+        "lacEligible": lac_eligible,
+        "deferred": deferred,
+        "excluded": excluded_sam,
+    }
+
+    aum_projection = [
+        {"month": 6, "aumInr": round(aum_month6, 0), "label": "Month 6"},
+        {"month": 12, "aumInr": round(aum_month12, 0), "label": "Month 12"},
+        {"month": 24, "aumInr": round(aum_month24, 0), "label": "Month 24"},
     ]
 
     # Outreach cohorts (simplified: by risk tier as proxy for priority)
@@ -549,6 +627,9 @@ def main():
 
     monetisation = {
         "tamWaterfall": tam_waterfall,
+        "samSegments": sam_segments,
+        "revenueModel": revenue_model,
+        "aumProjection": aum_projection,
     }
     with open(os.path.join(OUT_DIR, "monetisation.json"), "w") as f:
         json.dump(monetisation, f, indent=2)
