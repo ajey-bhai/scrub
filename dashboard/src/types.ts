@@ -9,6 +9,37 @@ export interface OverviewData {
   bureauDate: string;
 }
 
+export interface DataQualityRow {
+  metric: string;
+  value: number | string;
+  status: string;
+}
+
+export interface DataQualityData {
+  totalCustomers: number;
+  avgTradelinesPerCustomer: number;
+  anchorSummary: {
+    confirmed: number;
+    inferred: number;
+    none: number;
+    ambiguous: number;
+  };
+  month0PctOnDemandCurve: number;
+  preExistingPLPct: number;
+  bureauFreshnessDays: number;
+  bureauFreshPctUnder90Days: number;
+  repaymentBucketConsistency: {
+    pass: boolean;
+    bucketDHighQualityPct: number;
+  };
+  month36Spike: {
+    month35: number;
+    month36: number;
+    month37: number;
+  };
+  table: DataQualityRow[];
+}
+
 export interface PopulationData {
   bucketDistribution: { bucket: string; customers: number; pct: number }[];
   lenderTypeDistribution: { lenderType: string; customers: number }[];

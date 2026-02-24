@@ -42,15 +42,15 @@
   "productMix": [
     {
       "mix": "vehicle_and_pl",
-      "customers": 7886
+      "customers": 2824
+    },
+    {
+      "mix": "vehicle_only",
+      "customers": 6748
     },
     {
       "mix": "other",
       "customers": 35129
-    },
-    {
-      "mix": "vehicle_only",
-      "customers": 1686
     }
   ],
   "acctTypeDistribution": [

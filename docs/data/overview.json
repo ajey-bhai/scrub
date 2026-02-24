@@ -2,9 +2,9 @@
   "totalCustomers": 44701,
   "avgTradelinesPerCustomer": 14.71,
   "serviceableBase": 31123,
-  "plPenetrationRate": 51.51,
-  "goldenWindowCurveA": 1820,
-  "goldenWindowCurveB": 48,
+  "plPenetrationRate": 24.88,
+  "goldenWindowCurveA": 810,
+  "goldenWindowCurveB": 7,
   "customersInGoldenWindowNow": 2122,
   "bureauDate": "2025-05-05"
 }

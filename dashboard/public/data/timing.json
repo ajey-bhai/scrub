@@ -171,62 +171,62 @@
     {
       "month": 1,
       "monthName": "Jan",
-      "index": 1.08
+      "index": 1.21
     },
     {
       "month": 2,
       "monthName": "Feb",
-      "index": 1.03
+      "index": 1.35
     },
     {
       "month": 3,
       "monthName": "Mar",
-      "index": 1.15
+      "index": 1.39
     },
     {
       "month": 4,
       "monthName": "Apr",
-      "index": 0.9
+      "index": 1.08
     },
     {
       "month": 5,
       "monthName": "May",
-      "index": 0.87
+      "index": 0.78
     },
     {
       "month": 6,
       "monthName": "Jun",
-      "index": 0.92
+      "index": 0.77
     },
     {
       "month": 7,
       "monthName": "Jul",
-      "index": 0.99
+      "index": 0.8
     },
     {
       "month": 8,
       "monthName": "Aug",
-      "index": 0.99
+      "index": 0.77
     },
     {
       "month": 9,
       "monthName": "Sep",
-      "index": 0.99
+      "index": 0.8
     },
     {
       "month": 10,
       "monthName": "Oct",
-      "index": 1.02
+      "index": 0.98
     },
     {
       "month": 11,
       "monthName": "Nov",
-      "index": 1.01
+      "index": 0.97
     },
     {
       "month": 12,
       "monthName": "Dec",
-      "index": 1.06
+      "index": 1.09
     }
   ]
 }

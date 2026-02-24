@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type {
   OverviewData,
+  DataQualityData,
   PopulationData,
   BehaviourData,
   RiskData,
@@ -46,6 +47,7 @@ export default function App() {
   const [tab, setTab] = useState<TabId>("overview");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [dataQuality, setDataQuality] = useState<DataQualityData | null>(null);
   const [overview, setOverview] = useState<OverviewData | null>(null);
   const [population, setPopulation] = useState<PopulationData | null>(null);
   const [behaviour, setBehaviour] = useState<BehaviourData | null>(null);
@@ -59,6 +61,7 @@ export default function App() {
     const base = `${import.meta.env.BASE_URL}data`;
     Promise.all([
       loadJson<OverviewData>(`${base}/overview.json`),
+      loadJson<DataQualityData>(`${base}/data_quality.json`),
       loadJson<PopulationData>(`${base}/population.json`),
       loadJson<BehaviourData>(`${base}/behaviour.json`),
       loadJson<RiskData>(`${base}/risk.json`),
@@ -66,8 +69,9 @@ export default function App() {
       loadJson<MonetisationData>(`${base}/monetisation.json`),
       loadJson<OutreachData>(`${base}/outreach.json`),
     ])
-      .then(([o, p, b, r, t, m, u]) => {
+      .then(([o, dq, p, b, r, t, m, u]) => {
         setOverview(o);
+        setDataQuality(dq);
         setPopulation(p);
         setBehaviour(b);
         setRisk(r);
@@ -117,7 +121,7 @@ export default function App() {
       </nav>
 
       <main className="main">
-        {tab === "overview" && <Overview data={overview} />}
+        {tab === "overview" && <Overview data={overview} dataQuality={dataQuality} />}
         {tab === "population" && <PopulationView data={population} />}
         {tab === "behaviour" && <BehaviourView data={behaviour} />}
         {tab === "risk" && <RiskView data={risk} />}

@@ -1,0 +1,55 @@
+{
+  "totalCustomers": 44701,
+  "avgTradelinesPerCustomer": 14.71,
+  "anchorSummary": {
+    "confirmed": 0,
+    "inferred": 9572,
+    "none": 35129,
+    "ambiguous": 0
+  },
+  "month0PctOnDemandCurve": 10.2,
+  "preExistingPLPct": 78.53,
+  "bureauFreshnessDays": 295,
+  "bureauFreshPctUnder90Days": 0.0,
+  "repaymentBucketConsistency": {
+    "pass": false,
+    "bucketDHighQualityPct": 27.64
+  },
+  "month36Spike": {
+    "month35": 150,
+    "month36": 1928,
+    "month37": 0
+  },
+  "table": [
+    {
+      "metric": "Total CUSTOMER_IDs",
+      "value": 44701,
+      "status": ""
+    },
+    {
+      "metric": "Avg tradelines / customer",
+      "value": 14.71,
+      "status": "CHECK"
+    },
+    {
+      "metric": "Anchor: none (timing excluded)",
+      "value": "35129 (78.6%)",
+      "status": "CHECK"
+    },
+    {
+      "metric": "Month-0 spike in demand curve",
+      "value": "10.2%",
+      "status": "WARN"
+    },
+    {
+      "metric": "Bureau data freshness < 90 days",
+      "value": "0.0%",
+      "status": "CHECK"
+    },
+    {
+      "metric": "Repayment vs bucket consistency",
+      "value": "Check",
+      "status": "CHECK"
+    }
+  ]
+}
