@@ -1,0 +1,34 @@
+{
+  "riskTierDistribution": [
+    {
+      "tier": "0-39",
+      "customers": 8872
+    },
+    {
+      "tier": "40-69",
+      "customers": 4299
+    },
+    {
+      "tier": "70-100",
+      "customers": 31530
+    }
+  ],
+  "affordabilityDistribution": [
+    {
+      "tier": "micro",
+      "customers": 6754
+    },
+    {
+      "tier": "mid",
+      "customers": 10314
+    },
+    {
+      "tier": "mass",
+      "customers": 14994
+    },
+    {
+      "tier": "affluent",
+      "customers": 12639
+    }
+  ]
+}

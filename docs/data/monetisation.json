@@ -1,0 +1,24 @@
+{
+  "tamWaterfall": [
+    {
+      "stage": "Total customers (N0)",
+      "value": 44701,
+      "type": "start"
+    },
+    {
+      "stage": "Less: Bucket D (bad)",
+      "value": -8471,
+      "type": "minus"
+    },
+    {
+      "stage": "Less: Thin file",
+      "value": -5107,
+      "type": "minus"
+    },
+    {
+      "stage": "Serviceable base (SAM)",
+      "value": 31123,
+      "type": "total"
+    }
+  ]
+}

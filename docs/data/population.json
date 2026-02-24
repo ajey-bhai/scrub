@@ -1,0 +1,106 @@
+{
+  "bucketDistribution": [
+    {
+      "bucket": "Bucket A",
+      "customers": 4822,
+      "pct": 10.79
+    },
+    {
+      "bucket": "Bucket B",
+      "customers": 29164,
+      "pct": 65.24
+    },
+    {
+      "bucket": "Bucket C",
+      "customers": 2244,
+      "pct": 5.02
+    },
+    {
+      "bucket": "Bucket D",
+      "customers": 8471,
+      "pct": 18.95
+    }
+  ],
+  "lenderTypeDistribution": [
+    {
+      "lenderType": "Mixed",
+      "customers": 29026
+    },
+    {
+      "lenderType": "NBF",
+      "customers": 10508
+    },
+    {
+      "lenderType": "PVT",
+      "customers": 3303
+    },
+    {
+      "lenderType": "PUB",
+      "customers": 1864
+    }
+  ],
+  "productMix": [
+    {
+      "mix": "vehicle_and_pl",
+      "customers": 7886
+    },
+    {
+      "mix": "other",
+      "customers": 35129
+    },
+    {
+      "mix": "vehicle_only",
+      "customers": 1686
+    }
+  ],
+  "acctTypeDistribution": [
+    {
+      "acctType": "189",
+      "tradelines": 28285
+    },
+    {
+      "acctType": "123",
+      "tradelines": 23026
+    },
+    {
+      "acctType": "5",
+      "tradelines": 22336
+    },
+    {
+      "acctType": "173",
+      "tradelines": 12839
+    },
+    {
+      "acctType": "47",
+      "tradelines": 11666
+    },
+    {
+      "acctType": "191",
+      "tradelines": 11121
+    },
+    {
+      "acctType": "242",
+      "tradelines": 9051
+    },
+    {
+      "acctType": "58",
+      "tradelines": 8279
+    },
+    {
+      "acctType": "999",
+      "tradelines": 5525
+    },
+    {
+      "acctType": "195",
+      "tradelines": 3526
+    },
+    {
+      "acctType": "221",
+      "tradelines": 3207
+    },
+    {
+      "acctType": "172",
+      "tradelines": 3101
+    }
+  ]
+}

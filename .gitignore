@@ -1,0 +1,14 @@
+node_modules/
+.venv/
+dist/
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.vite/
+
+# Local data file (large / sensitive)
+AR_sample.csv
+
+# OS / editor noise
+.DS_Store
+*.log
+

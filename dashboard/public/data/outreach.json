@@ -1,0 +1,20 @@
+{
+  "outreachCohortDistribution": [
+    {
+      "cohort": "Immediate (top 20%)",
+      "customers": 8940
+    },
+    {
+      "cohort": "Next 30 days",
+      "customers": 4299
+    },
+    {
+      "cohort": "Next 90 days",
+      "customers": 8872
+    },
+    {
+      "cohort": "Hold",
+      "customers": 0
+    }
+  ]
+}
